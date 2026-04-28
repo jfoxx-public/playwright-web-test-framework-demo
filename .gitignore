@@ -145,5 +145,6 @@ vite.config.ts.timestamp-*
 
 ##########################################################################################
 test-results/
-notes.txt
+notes.md
 playwright-report/
+
