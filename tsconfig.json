@@ -1,0 +1,110 @@
+//>{
+//>  // Visit https://aka.ms/tsconfig to read more about this file
+//>  "compilerOptions": {
+//>    // File Layout
+//>    // "rootDir": "./src",
+//>    // "outDir": "./dist",
+//>
+//>    // Environment Settings
+//>    // See also https://aka.ms/tsconfig/module
+//>    "module": "nodenext",
+//>    "target": "esnext",
+//>    "types": [],
+//>    // For nodejs:
+//>    // "lib": ["esnext"],
+//>    // "types": ["node"],
+//>    // and npm install -D @types/node
+//>
+//>    // Other Outputs
+//>    "sourceMap": true,
+//>    "declaration": true,
+//>    "declarationMap": true,
+//>
+//>    // Stricter Typechecking Options
+//>    "noUncheckedIndexedAccess": true,
+//>    "exactOptionalPropertyTypes": true,
+//>
+//>    // Style Options
+//>    // "noImplicitReturns": true,
+//>    // "noImplicitOverride": true,
+//>    // "noUnusedLocals": true,
+//>    // "noUnusedParameters": true,
+//>    // "noFallthroughCasesInSwitch": true,
+//>    // "noPropertyAccessFromIndexSignature": true,
+//>
+//>    // Recommended Options
+//>    "strict": true,
+//>    "jsx": "react-jsx",
+//>    "verbatimModuleSyntax": true,
+//>    "isolatedModules": true,
+//>    "noUncheckedSideEffectImports": true,
+//>    "moduleDetection": "force",
+//>    "skipLibCheck": true,
+//>  }
+//>}
+
+//{
+//  "compilerOptions": {
+//    // 1. Soporte para extensiones .ts (Tu requerimiento principal)
+//    "allowImportingTsExtensions": true,
+//    "noEmit": true,
+//
+//    "moduleDetection": "force",
+//    "isolatedModules": true,
+//
+//    // 2. Resolución de módulos moderna
+//    "module": "ESNext",
+//    "moduleResolution": "bundler",
+//
+//    // 3. Estándares de TypeScript 6.0+
+//    "strict": true,
+//    "esModuleInterop": true,
+//    "skipLibCheck": true,
+//
+//    // 4. Alias de rutas (Sin baseUrl)
+//    "paths": {
+//      "@pages/*": ["./pages/*"],
+//      "@fixtures/*": ["./fixtures/*"]
+//
+//
+//    }
+//  },
+//  "include": ["tests/**/*", "pages/**/*", "fixtures/**/*"]
+//}
+
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler", // Ideal para Playwright moderno
+    "baseUrl": ".", // Define la raíz para que los paths sean consistentes
+
+    /* Alias de rutas */
+    "paths": {
+      "@pages/*": ["pages/*"],
+      "@fixtures/*": ["fixtures/*"],
+      "@components/*": ["components/*"]
+    },
+
+    /* Estrictez y Calidad (Nivel Senior) */
+    "strict": true,
+    "noUnusedLocals": true, // Te avisa si dejas variables sin usar
+    "noUnusedParameters": true, // Limpieza en tus métodos de POM
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true, // Evita errores entre Windows/Linux
+
+    /* Playwright no necesita emitir JS, solo chequear tipos */
+    "noEmit": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true // Útil si guardas datos de prueba en archivos .json
+  },
+  "include": [
+    "tests/**/*",
+    "pages/**/*",
+    "fixtures/**/*",
+    "playwright.config.ts" // Importante incluir la config global
+  ],
+  "exclude": ["node_modules"]
+}
