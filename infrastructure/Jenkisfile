@@ -1,0 +1,81 @@
+/*
+ * Playwright E2E Test Pipeline
+ *
+ * This pipeline:
+ * - Clones the repository from GitHub using the selected branch
+ * - Installs project dependencies
+ * - Runs Playwright end-to-end tests inside a Docker container
+ * - Targets a specific environment (staging or dev)
+ * - Publishes HTML test reports in Jenkins
+ */
+
+pipeline {
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.42.1-jammy'
+            args '--network qa-infrastructure_qa-network'
+        }
+    }
+
+    parameters {
+    choice(
+        name: 'BRANCH',
+        choices: ['main', automation-specs],
+        description: 'Select the branch to test'
+    )
+    choice(
+        name: 'ENV',
+        choices: ['staging', 'dev'],
+        description: 'Target environment'
+    )
+    }
+
+    environment {
+        BASE_URL = "${params.ENV == 'staging' ? 'http://staging-app' : 'http://dev-app'}"
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: "${params.BRANCH}",
+                    url: 'https://github.com/jfoxx-public/playwright-web-test-framework-demo.git'
+            }
+        }
+
+        stage('Debug Info') {
+            steps {
+                sh "echo Running branch: ${params.BRANCH}"
+                sh "echo Target environment: ${params.ENV}"
+                sh "echo Base URL: ${BASE_URL}"
+                sh "git branch"
+                sh "git log -1 --oneline"
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm ci'
+            }
+        }
+
+        stage('Run E2E Tests') {
+            steps {
+                sh 'BASE_URL=$BASE_URL npx playwright test --project=chromium'
+            }
+        }
+    }
+
+    post {
+        always {
+            publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'playwright-report',
+                reportFiles: 'index.html',
+                reportName: 'Playwright HTML Report'
+            ])
+        }
+    }
+}
