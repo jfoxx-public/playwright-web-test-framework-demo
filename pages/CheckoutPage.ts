@@ -41,7 +41,6 @@ export class CheckoutPage extends BasePage {
   }
 
   async getSummaryInfo() {
-    // Función interna pequeña para no repetir código
     const getText = async (selector: string) => (await this.page.locator(selector).textContent())?.trim() || '';
 
     return {
