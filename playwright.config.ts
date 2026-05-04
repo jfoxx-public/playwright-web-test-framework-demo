@@ -5,8 +5,7 @@ export default defineConfig({
   fullyParallel: true,
   reporter: 'html',
   use: {
-    /* Base URL para usar en page.goto('/') */
-    // Localmente usaremos localhost:3000, pero Jenkins usará el nombre del contenedor
+    // locally we will use localhost:3000, but Jenkins will use the container's name
     baseURL: process.env.URL || 'http://localhost:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
