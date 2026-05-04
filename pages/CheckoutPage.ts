@@ -1,5 +1,5 @@
-import { BasePage } from './BasePage.ts';
-import { expect } from '@fixtures/pom-fixture.ts';
+import { BasePage } from './BasePage';
+import { expect } from '@fixtures/pom-fixture';
 
 export class CheckoutPage extends BasePage {
   private readonly firstNameInput = this.page.locator('[data-test="firstName"]');

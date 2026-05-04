@@ -1,5 +1,5 @@
-import { BasePage } from './BasePage.ts';
-import { Page, Locator, expect } from '@fixtures/pom-fixture.ts';
+import { BasePage } from './BasePage';
+import { Page, Locator, expect } from '@fixtures/pom-fixture';
 
 export class InventoryPage extends BasePage {
   private readonly inventoryItems = this.page.locator('[data-test="inventory-item"]');
@@ -59,7 +59,7 @@ export class BurgerMenu {
   private readonly logoutLink: Locator;
   private readonly allItemsLink: Locator;
   private readonly resetAppStateLink: Locator;
-
+  
   constructor(private readonly page: Page) {
     this.menuButton = page.getByRole('button', { name: 'Open Menu' });
     this.logoutLink = page.locator('[data-test="logout-sidebar-link"]');
@@ -67,13 +67,23 @@ export class BurgerMenu {
     this.resetAppStateLink = page.locator('[data-test="reset-sidebar-link"]');
   }
 
-  async logout() {
+  private async open() {
     await this.menuButton.click();
+    await expect(this.logoutLink).toBeVisible();
+  }
+
+  async logout() {
+    await this.open();
     await this.logoutLink.click();
   }
 
   async resetAppState() {
-    await this.menuButton.click();
+    await this.open();
     await this.resetAppStateLink.click();
+  }
+
+  async goToAllItems() {
+    await this.open();
+    await this.allItemsLink.click();
   }
 }

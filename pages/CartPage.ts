@@ -1,5 +1,5 @@
 import { Locator } from '@playwright/test';
-import { BasePage } from './BasePage.ts';
+import { BasePage } from './BasePage';
 
 export class CartPage extends BasePage {
   private readonly cartItems = this.page.locator('[data-test="inventory-item"]');
@@ -13,7 +13,6 @@ export class CartPage extends BasePage {
 
     return Promise.all(
       allRows.map(async (row) => {
-        // Retornamos el objeto directamente, sin el [ ]
         return {
           quantity: await getText('[data-test="item-quantity"]', row),
           name: await getText('[data-test="inventory-item-name"]', row),
