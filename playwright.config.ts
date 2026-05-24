@@ -6,7 +6,7 @@ export default defineConfig({
   reporter: 'html',
   use: {
     // locally we will use localhost:3000, but Jenkins will use the container's name
-    baseURL: process.env.URL || 'http://localhost:3000',
+    baseURL: process.env.BASE_URL || 'http://localhost:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },

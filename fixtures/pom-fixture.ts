@@ -1,8 +1,8 @@
 import { test as base } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage.ts';
-import { InventoryPage } from '../pages/InventoryPage.ts';
-import { CartPage } from '../pages/CartPage.ts';
-import { CheckoutPage } from '../pages/CheckoutPage.ts';
+import { LoginPage } from '../pages/LoginPage';
+import { InventoryPage } from '../pages/InventoryPage';
+import { CartPage } from '../pages/CartPage';
+import { CheckoutPage } from '../pages/CheckoutPage';
 
 type MyFixtures = {
   loginPage: LoginPage;

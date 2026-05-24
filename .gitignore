@@ -147,3 +147,4 @@ test-results/
 playwright-report/
 notes.md
 *.backup
+.DS_Store
